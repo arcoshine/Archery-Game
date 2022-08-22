@@ -8,10 +8,9 @@ public class CamRot : MonoBehaviour
     float MouseX = 0; //for horizontal rotation
     float MouseY = 0; //for vertical rotation
     float Sens = 1; //for mouse sensitivity
-    public Transform player;
     void Start()
     {
-        
+        Cursor.lockState = CursorLockMode.Locked; //Lock the cursor in the middle of the screen
     }
 
     // Update is called once per frame
