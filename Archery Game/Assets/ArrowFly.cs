@@ -14,19 +14,30 @@ public class ArrowFly : MonoBehaviour
     public GameObject camera_m; //used to reference the Main Camera
     private float timeDown; //used to represent time that fire 1 was held down
     public float mass = 0.03f; //mass of the arrow in kg
+    public bool gravityOn; //determines whether gravity is accounted for
+    public bool dragOn; //determines whether drag is accounted for
     void Start()
     {
         camera_m = GameObject.FindWithTag("MainCamera"); //get reference to the main camera
         fireArrow = camera_m.GetComponent<FireArrow>(); //get reference to FireArrow
         timeDown = fireArrow.timeHeld; //Fire timeHeld
-        velos = Vector3.Normalize(transform.TransformVector(Vector3.forward)) * 10.0f; //set vector for arrow movement at 2m/s initially
+        velos = Vector3.Normalize(transform.TransformVector(Vector3.forward)) * 10.0f; //set vector for arrow movement at 10m/s initially
         velos = Mathf.Min(Mathf.Sqrt(timeDown), 20.0f) * velos; //adjust
+        gravityOn = true; //enable gravity
+        dragOn = true; //enalble drag
     }
 
     // Update is called once per frame
     void Update()
     {
-        forces = gravFor + dragFors;
+        if(gravityOn)
+        {
+            forces = gravFor;
+            if(dragOn)
+            {
+                forces += dragFors;
+            }
+        }
         accels = forces / mass;
         velos = velos + (Time.deltaTime * accels); //calculate new velocity given acceleraction
         var displacement = velos * Time.deltaTime - (0.5f * accels * Mathf.Pow(Time.deltaTime, 2.0f)); //calculate the displacement in the given period
