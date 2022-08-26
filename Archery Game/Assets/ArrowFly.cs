@@ -22,7 +22,7 @@ public class ArrowFly : MonoBehaviour
         fireArrow = camera_m.GetComponent<FireArrow>(); //get reference to FireArrow
         timeDown = fireArrow.timeHeld; //Fire timeHeld
         velos = Vector3.Normalize(transform.TransformVector(Vector3.forward)) * 10.0f; //set vector for arrow movement at 10m/s initially
-        velos = Mathf.Min(Mathf.Sqrt(timeDown), 20.0f) * velos; //adjust
+        velos = Mathf.Min(Mathf.Sqrt(timeDown), 2.0f) * velos; //adjust
         gravityOn = true; //enable gravity
         dragOn = true; //enalble drag
     }
